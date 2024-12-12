@@ -1,7 +1,7 @@
 let steps = 360 * 3;
 let r = 324;
-let noiseScale = 0.003;
-const noiseAmount = 50;
+let noiseScale = 0.03;
+const noiseAmount = 500;
 
 function setup() {
   createCanvas(400, 400);
