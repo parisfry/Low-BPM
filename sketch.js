@@ -8,7 +8,8 @@ function setup() {
   noFill();
   stroke(255, 50);
   background(0);
-  r = 400 / 2.5;
+  r = map(mouseX, 0, width, 50, 50);
+
 }
 
 function distortedCircle() {
