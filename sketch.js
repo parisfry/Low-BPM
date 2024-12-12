@@ -8,29 +8,30 @@ function setup() {
   noFill();
   stroke(255, 50);
   background(0);
-  r = map(mouseX, 0, width, 50, 50);
+  r = 400 / 2.5;
 
 }
 
-function distortedCircle() {
+function distortedSpiral(turns = 5) {
   beginShape();
   for (let i = 0; i <= steps; i++) {
-    x = width / 2 + r * cos((TWO_PI * i) / steps);
-    y = height / 2 + r * sin((TWO_PI * i) / steps);
-    x += map(
-      noise(noiseScale * x, noiseScale * y, frameCount / 100),0,1,-noiseAmount,noiseAmount);
-    y += map(
-      noise(noiseScale * x, noiseScale * y, 1), 0,1, -noiseAmount,noiseAmount);
+    let t = i / steps;
+    let spiralRadius = r * t * turns; // Expanding radius
+    let angle = TWO_PI * t * turns;
+
+    let x = width / 2 + spiralRadius * cos(angle);
+    let y = height / 2 + spiralRadius * sin(angle);
+
+    x += map(noise(noiseScale * x, noiseScale * y, frameCount / 500), 0, 1, -noiseAmount, noiseAmount);
+    y += map(noise(noiseScale * x, noiseScale * y, 1), 0, 1, -noiseAmount, noiseAmount);
+
     vertex(x, y);
   }
   endShape();
 }
 
 function draw() {
-  //background(0,1); more chill distortion and slow fading
- //background(100,1); //slow fading not just black to white
-background (0,20);// intense moving with fading 
-
-  stroke(255);
-  distortedCircle();
+  background(0,10);
+  distortedSpiral(50); // Change "3" for more or fewer spiral turns
 }
+
