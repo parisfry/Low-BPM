@@ -17,7 +17,7 @@ function distortedCircle() {
     x = width / 2 + r * cos((TWO_PI * i) / steps);
     y = height / 2 + r * sin((TWO_PI * i) / steps);
     x += map(
-      noise(noiseScale * x, noiseScale * y, frameCount / 500),0,1,-noiseAmount,noiseAmount);
+      noise(noiseScale * x, noiseScale * y, frameCount / 100),0,1,-noiseAmount,noiseAmount);
     y += map(
       noise(noiseScale * x, noiseScale * y, 1), 0,1, -noiseAmount,noiseAmount);
     vertex(x, y);
@@ -26,7 +26,10 @@ function distortedCircle() {
 }
 
 function draw() {
-  background(0,20);
+  //background(0,1); more chill distortion and slow fading
+ //background(100,1); //slow fading not just black to white
+background (0,20);// intense moving with fading 
+
   stroke(255);
   distortedCircle();
 }
