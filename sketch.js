@@ -12,26 +12,26 @@ function setup() {
 
 }
 
-function distortedSpiral(turns = 5) {
-  beginShape();
-  for (let i = 0; i <= steps; i++) {
-    let t = i / steps;
-    let spiralRadius = r * t * turns; // Expanding radius
-    let angle = TWO_PI * t * turns;
+function distortedGrid(cols = 10, rows = 10) {
+  let cellWidth = width / cols;
+  let cellHeight = height / rows;
 
-    let x = width / 2 + spiralRadius * cos(angle);
-    let y = height / 2 + spiralRadius * sin(angle);
+  for (let i = 0; i <= cols; i++) {
+    for (let j = 0; j <= rows; j++) {
+      let x = i * cellWidth;
+      let y = j * cellHeight;
 
-    x += map(noise(noiseScale * x, noiseScale * y, frameCount / 500), 0, 1, -noiseAmount, noiseAmount);
-    y += map(noise(noiseScale * x, noiseScale * y, 1), 0, 1, -noiseAmount, noiseAmount);
+      x += map(noise(noiseScale * x, noiseScale * y, frameCount / 500), 0, 1, -noiseAmount, noiseAmount);
+      y += map(noise(noiseScale * x, noiseScale * y, 1), 0, 1, -noiseAmount, noiseAmount);
 
-    vertex(x, y);
+      ellipse(x, y, 5); // Draw points as small circles
+    }
   }
-  endShape();
 }
 
 function draw() {
-  background(0,10);
-  distortedSpiral(50); // Change "3" for more or fewer spiral turns
+  background(0);
+  fill(220);
+  distortedGrid(15, 15); // Change 15x15 to adjust grid density
 }
 
