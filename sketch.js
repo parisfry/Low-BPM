@@ -1,5 +1,5 @@
 let steps = 360 * 3;
-let r = 324;
+let r = 320;
 let noiseScale = 0.03;
 const noiseAmount = 500;
 
@@ -26,7 +26,7 @@ function distortedCircle() {
 }
 
 function draw() {
-  background(0);
+  background(0,20);
   stroke(255);
   distortedCircle();
 }
