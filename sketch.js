@@ -9,32 +9,27 @@ function setup() {
   stroke(255, 50);
   background(0);
   r = 400 / 2.5;
-
 }
 
-function distortedSpiral(turns = 5) {
-  beginShape();
-  for (let i = 0; i <= steps; i++) {
-  
-    let t = i / steps;
-    let spiralRadius = r * t * turns; // Expanding radius
-    let angle = TWO_PI * t * turns;
-    let x = width / 2 + spiralRadius * cos(angle);
-    let y = height / 2 + spiralRadius * sin(angle);
-    x += map(noise(noiseScale * x, noiseScale * y, frameCount / 500), 0, 1, -noiseAmount, noiseAmount);
-    y += map(noise(noiseScale * x, noiseScale * y, 1), 0, 1, -noiseAmount, noiseAmount);
-    
-    let hue = map(angle + frameCount * 0.01, 0, TWO_PI * turns, 0, 255);
-    let brightness = map(spiralRadius, 0, r * turns, 50, 255); // Brightness increases with radius
-    stroke(hue, 255, brightness, 100); // Set stroke color with transparency
-    
-    vertex(x, y);
+function distortedGrid(cols = 10, rows = 10) {
+  let cellWidth = width / cols;
+  let cellHeight = height / rows;
+
+  for (let i = 0; i <= cols; i++) {
+    for (let j = 0; j <= rows; j++) {
+      let x = i * cellWidth;
+      let y = j * cellHeight;
+
+      x += map(noise(noiseScale * x, noiseScale * y, frameCount / 1000), 0, 1, -noiseAmount, noiseAmount);
+      y += map(noise(noiseScale * x, noiseScale * y, 1), 0, 1, -noiseAmount, noiseAmount);
+
+      fill('yellow');
+      ellipse(x, y, 20); // Draw points as small circles
+    }
   }
-  endShape();
 }
 
 function draw() {
-  colorMode(HSB, 255); // Use Hue, Saturation, Brightness mode for color
-  background(0,10);
-  distortedSpiral(50); // Change "3" for more or fewer spiral turns
+  background('lightBlue');
+  distortedGrid(1, 20); // Change 15x15 to adjust grid density
 }
